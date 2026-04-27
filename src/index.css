@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:wght@300;400;500;600&family=Noto+Nastaliq+Urdu:wght@400;500;600;700&family=Gulzar&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Cormorant Garamond", serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-urdu: "Noto Nastaliq Urdu", serif;
+  --font-gulzar: "Gulzar", serif;
+  
+  --color-heritage-gold: #D4AF37;
+  --color-royal-maroon: #800000;
+  --color-bridal-ivory: #FDFBF7;
+  --color-mehndi-green: #2E4732;
+  --color-silk-charcoal: #1A1A1A;
+}
+
+@layer base {
+  body {
+    @apply bg-bridal-ivory text-silk-charcoal font-sans antialiased;
+  }
+  
+  h1, h2, h3, h4 {
+    @apply font-serif;
+  }
+
+  .urdu-text {
+    font-family: var(--font-urdu);
+    line-height: 2.5;
+    direction: rtl;
+  }
+}
+
+.motif-bg {
+  background-image: url("https://www.transparenttextures.com/patterns/p6.png");
+  background-color: var(--color-bridal-ivory);
+}
+
+.glass-card {
+  @apply bg-white/70 backdrop-blur-md border border-heritage-gold/20 shadow-sm;
+}
+
+.arch-card {
+  @apply bg-white/30 backdrop-blur-[12px] border border-heritage-gold/30 shadow-2xl transition-all duration-700 overflow-hidden;
+  border-radius: 0 0 40px 40px;
+  position: relative;
+  /* Classic Pointed Arch Path - slightly more elegant for Mughal style */
+  clip-path: path('M 0,500 L 420,500 L 420,180 C 420,120 380,80 210,0 C 40,80 0,120 0,180 Z');
+}
+
+.luxury-button {
+  @apply relative overflow-hidden px-8 py-3 bg-heritage-gold text-white font-medium 
+         transition-all duration-300 hover:bg-heritage-gold/90 active:scale-95;
+}
+
+.serif-display {
+  @apply font-serif tracking-tight;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-bridal-ivory;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-heritage-gold/30 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-heritage-gold/50;
+}
