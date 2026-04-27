@@ -128,9 +128,19 @@ async function startServer() {
         Analyze the provided South Asian outfit image with expert-level detail and provide both English and Urdu (Nastaliq style) content.
 
         Identify every single embroidery type present. Instead of limiting to 3, list ALL of them (e.g., zardozi, dabka, resham, jaali/jaal, sequins, stonework/kundan, pitta work, nakshi, marori, kora, tilla, gota, sheesha/mirror work, appliqué/patchwork, sindhi tankay, aari/chain stitch, cross-stitch, phulkari, etc.).
-        Avoid mentioning any brand names in the descriptions.
+        Avoid mentioning any brand names (like Rastah, Sabyasachi, etc.) in the descriptions.
         Identify placement: (e.g., neckline, sleeves, choli/bodice, lehenga panels, heavy geometric borders, dupatta mathapatti).
-        BE EXTREMELY VOCAL AND DETAILED...
+        BE EXTREMELY VOCAL AND DETAILED: Instead of generic terms like "embellished choli" or "heavy border", use descriptive, technical language. 
+           - For the choli/bodice: Describe the motif density, specific materials (e.g., "intricate floral jaal with pitta work and crystal hangings").
+           - For borders: Describe the scale (e.g., "wide 10-inch geometric border") and layering techniques (e.g., "velvet appliqué with Tilla Marori edgings").
+        Provide production insights.
+        Provide 'Smart Insights'.
+        Provide visual annotations (0-1000 normalized coordinates). Make sure coordinates are accurately placed on the relevant embroidery parts of the garment.
+        Extract a primary color palette (hex codes).
+        
+        CRITICAL: For every text field, provide an accurate Urdu translation in a traditional, sophisticated Nastaliq-friendly tone. Avoid literal translations; use boutique-appropriate Urdu terminology.
+
+        Cost Guidelines (PKR):
         - Light/Medium: 50,000 - 150,000 PKR
         - Heavy/Bridal: 180,000 - 450,000 PKR
         - Extremely Couture: 500,000+ PKR
