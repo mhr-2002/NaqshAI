@@ -34,9 +34,9 @@ export default function PatchworkBackground() {
   }, []);
 
   return (
-    <div className="fixed inset-0 pointer-events-none overflow-hidden z-0 bg-silk-charcoal">
+    <div className="fixed inset-0 pointer-events-none overflow-hidden z-[-1] bg-[#fdfbf6]">
       <div 
-        className="absolute top-[-5%] left-[-5%] w-[110%] grid grid-cols-6 gap-0 opacity-40"
+        className="absolute top-[-5%] left-[-5%] w-[110%] grid grid-cols-6 gap-0 opacity-20"
       >
         {gridItems.map((pattern, i) => {
           let position = 'center';
@@ -46,7 +46,7 @@ export default function PatchworkBackground() {
           return (
             <div 
               key={i}
-              className="relative w-full aspect-square overflow-hidden border-[0.5px] border-white/5"
+              className="relative w-full aspect-square overflow-hidden border-[0.5px] border-black/5"
             >
                <div 
                  className="absolute inset-0 transition-transform duration-700 scale-[1.5] transform-gpu"
@@ -57,15 +57,15 @@ export default function PatchworkBackground() {
                    backgroundRepeat: 'no-repeat'
                  }}
                />
-               <div className="absolute inset-0 bg-black/20" />
+               <div className="absolute inset-0 bg-white/10" />
             </div>
           );
         })}
       </div>
       
-      {/* Foggy Overlay around logo area for readability */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[800px] h-64 bg-[radial-gradient(circle_at_50%_15%,_#fdfbf6_10%,_#fdfbf6_30%,_transparent_70%)] pointer-events-none opacity-80 blur-xl z-10" />
-      <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-[#fdfbf6]/80 via-[#fdfbf6]/40 to-transparent z-10 pointer-events-none" />
+      {/* Readability gradients */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#fdfbf6]/40 via-transparent to-[#fdfbf6]/80" />
+      <div className="absolute top-0 left-0 right-0 h-96 bg-gradient-to-b from-white/30 to-transparent pointer-events-none" />
     </div>
   );
 }

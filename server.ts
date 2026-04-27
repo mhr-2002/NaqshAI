@@ -147,7 +147,7 @@ async function startServer() {
       `;
 
       const response = await ai.models.generateContent({
-        model: "gemini-1.5-flash-latest",
+        model: "gemini-3-flash-preview",
         contents: {
           parts: [
             {
@@ -168,9 +168,10 @@ async function startServer() {
       if (!response.text) throw new Error("No response from AI");
       res.json(JSON.parse(response.text));
 
-    } catch (error) {
+    } catch (error: any) {
       console.error("AI Analysis Error:", error);
-      res.status(500).json({ error: "Failed to analyze image" });
+      const errorMessage = error?.message || "Failed to analyze image";
+      res.status(500).json({ error: errorMessage });
     }
   });
 
