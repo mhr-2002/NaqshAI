@@ -72,7 +72,7 @@ export default function AnalysisReport({ result, language, setLanguage }: Props)
     if (text.includes('sheesha') || text.includes('mirror')) return '/embroidery-Sheesha.png';
     if (text.includes('applique') || text.includes('patchwork')) return '/embroidery-applique.png';
     if (text.includes('kantha')) return '/embroidery-kantha.png';
-    if (text.includes('chain stitch') || text.includes('aari') || text.includes('magzi')) return '/embroidery-aari(chain stitch).png';
+    if (text.includes('chain stitch') || text.includes('aari') || text.includes('magzi')) return '/embroidery-aari-chain-stitch.png';
     if (text.includes('cross stitch') || text.includes('cross-stitch')) return '/embroidery-cross-stitch.png';
     if (text.includes('zardozi') || text.includes('metallic')) return '/Zardozi-1.png';
     if (text.includes('resham') || text.includes('silk thread')) return '/Resham-1.png';
@@ -82,12 +82,12 @@ export default function AnalysisReport({ result, language, setLanguage }: Props)
     if (text.includes('gota') || text.includes('lappa')) return '/gota.png';
     if (text.includes('dabka') || text.includes('spring')) return '/embroidery-Dabka.png';
     if (text.includes('kora')) return '/embroidery-Kora.png';
-    if (text.includes('tilla') || text.includes('zarri') || text.includes('zari')) return '/embroidery-Tilla:zarri.png';
+    if (text.includes('tilla') || text.includes('zarri') || text.includes('zari')) return '/embroidery-tilla-zarri.png';
     if (text.includes('marori')) return '/embroidery-Marori.png';
     if (text.includes('nakshi')) return '/embroidery-Nakshi.png';
     if (text.includes('pitta')) return '/embroidery-Pitta.png';
     if (text.includes('chikan') || text.includes('white work')) return '/embroidery-ChikanKari.png';
-    if (text.includes('mukesh') || text.includes('kamdani') || text.includes('badla')) return '/embroidery-Kamdani(Mukesh).png';
+    if (text.includes('mukesh') || text.includes('kamdani') || text.includes('badla')) return '/embroidery-kamdani-mukesh.png';
     if (text.includes('stone') || text.includes('crystal') || text.includes('stonework') || text.includes('kundan')) return '/embroidery-StoneWork.png';
     if (text.includes('jaali') || text.includes('cutwork') || text.includes('jaal')) return '/embroidery-Jaali-Jaal.png';
     

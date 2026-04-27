@@ -14,6 +14,14 @@ async function startServer() {
   // Middleware for parsing JSON payloads
   app.use(express.json({ limit: '20mb' }));
 
+  // Debug request logger
+  app.use((req, res, next) => {
+    if (process.env.NODE_ENV === 'production' && req.path.includes('.')) {
+      console.log(`[Prod] Request for asset: ${req.path}`);
+    }
+    next();
+  });
+
   // --- Gemini AI Setup (Server-side) ---
   const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY || "" });
 
@@ -147,7 +155,7 @@ async function startServer() {
       `;
 
       const response = await ai.models.generateContent({
-        model: "gemini-3-flash-preview",
+        model: "gemini-1.5-flash",
         contents: {
           parts: [
             {
@@ -184,7 +192,9 @@ async function startServer() {
     app.use(vite.middlewares);
   } else {
     // In production, serve the dist folder
-    const distPath = path.join(process.cwd(), "dist");
+    const distPath = path.resolve(process.cwd(), "dist");
+    console.log(`[Prod] Serving static files from: ${distPath}`);
+    console.log(`[Prod] Current working directory: ${process.cwd()}`);
     
     // Serve static files first
     app.use(express.static(distPath));
@@ -193,7 +203,8 @@ async function startServer() {
     app.get("*", (req, res) => {
       // API routes should have been handled above
       // If it's a file request that wasn't found by express.static, don't serve index.html
-      if (req.path.includes(".")) {
+      if (req.path.includes(".") && !req.path.endsWith(".html")) {
+        console.warn(`[Prod] Asset not found: ${req.path}`);
         res.status(404).end();
         return;
       }
