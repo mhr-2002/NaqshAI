@@ -9,7 +9,7 @@ const PATTERNS = [
   '/Resham-1.png',
   '/embroidery-Dabka.png',
   '/embroidery-Jaali-Jaal.png',
-  '/embroidery-kamdani-mukesh.png',
+  '/embroidery-Kamdani(Mukesh).png',
   '/embroidery-StoneWork.png',
   '/embroidery-Resham-1.png',
   '/embroidery-Zardozi-1.png',
@@ -34,9 +34,9 @@ export default function PatchworkBackground() {
   }, []);
 
   return (
-    <div className="fixed inset-0 pointer-events-none overflow-hidden z-[-1] bg-[#fdfbf6]">
+    <div className="fixed inset-0 pointer-events-none overflow-hidden z-0 bg-silk-charcoal">
       <div 
-        className="absolute top-[-5%] left-[-5%] w-[110%] grid grid-cols-6 gap-0 opacity-80"
+        className="absolute top-[-5%] left-[-5%] w-[110%] grid grid-cols-6 gap-0 opacity-[0.95]"
       >
         {gridItems.map((pattern, i) => {
           let position = 'center';
@@ -46,7 +46,7 @@ export default function PatchworkBackground() {
           return (
             <div 
               key={i}
-              className="relative w-full aspect-square overflow-hidden border-[0.5px] border-black/5"
+              className="relative w-full aspect-square overflow-hidden bg-silk-charcoal border-[0.5px] border-white/5"
             >
                <div 
                  className="absolute inset-0 transition-transform duration-700 scale-[1.5] transform-gpu"
@@ -57,16 +57,15 @@ export default function PatchworkBackground() {
                    backgroundRepeat: 'no-repeat'
                  }}
                />
-               <div className="absolute inset-0 bg-white/5" />
+               <div className="absolute inset-0 bg-black/10" />
             </div>
           );
         })}
       </div>
       
-      {/* Subtle readability gradients & Very subtle foggy logo area */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[800px] h-64 bg-[radial-gradient(circle_at_50%_0%,_#fdfbf6_20%,_transparent_70%)] pointer-events-none opacity-40 blur-3xl z-0" />
-      <div className="absolute inset-0 bg-gradient-to-b from-[#fdfbf6]/5 via-transparent to-[#fdfbf6]/10" />
-      <div className="absolute top-0 left-0 right-0 h-48 bg-gradient-to-b from-white/10 to-transparent pointer-events-none" />
+      {/* Foggy Overlay around logo area for readability */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[800px] h-64 bg-[radial-gradient(circle_at_50%_15%,_#fdfbf6_10%,_#fdfbf6_30%,_transparent_70%)] pointer-events-none opacity-80 blur-xl z-10" />
+      <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-[#fdfbf6]/80 via-[#fdfbf6]/40 to-transparent z-10 pointer-events-none" />
     </div>
   );
 }

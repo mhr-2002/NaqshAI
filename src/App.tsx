@@ -38,14 +38,9 @@ export default function App() {
         const res = await analyzeSouthAsianOutfit(analysisBase64);
         setResult(res);
         setStatus('completed');
-      } catch (err: any) {
+      } catch (err) {
         console.error(err);
-        let msg = 'The artisan is busy at the moment. Please try again.';
-        if (err instanceof Error) msg = err.message;
-        else if (typeof err === 'string') msg = err;
-        else if (err?.error) msg = err.error;
-        
-        setError(msg);
+        setError('The artisan is busy at the moment. Please try again.');
         setStatus('error');
       }
     };

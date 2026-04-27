@@ -43,8 +43,8 @@
   @apply bg-white/30 backdrop-blur-[12px] border border-heritage-gold/30 shadow-2xl transition-all duration-700 overflow-hidden;
   border-radius: 0 0 40px 40px;
   position: relative;
-  /* Classic Pointed Arch Path - increased height to avoid clipping */
-  clip-path: path('M 0,2000 L 420,2000 L 420,180 C 420,120 380,80 210,0 C 40,80 0,120 0,180 Z');
+  /* Classic Pointed Arch Path - slightly more elegant for Mughal style */
+  clip-path: path('M 0,500 L 420,500 L 420,180 C 420,120 380,80 210,0 C 40,80 0,120 0,180 Z');
 }
 
 .luxury-button {
