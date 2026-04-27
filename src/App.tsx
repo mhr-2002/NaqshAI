@@ -40,7 +40,12 @@ export default function App() {
         setStatus('completed');
       } catch (err: any) {
         console.error(err);
-        setError(err.message || 'The artisan is busy at the moment. Please try again.');
+        let msg = 'The artisan is busy at the moment. Please try again.';
+        if (err instanceof Error) msg = err.message;
+        else if (typeof err === 'string') msg = err;
+        else if (err?.error) msg = err.error;
+        
+        setError(msg);
         setStatus('error');
       }
     };

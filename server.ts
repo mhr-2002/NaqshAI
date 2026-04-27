@@ -156,17 +156,20 @@ async function startServer() {
 
       const response = await ai.models.generateContent({
         model: "gemini-1.5-flash",
-        contents: {
-          parts: [
-            {
-              inlineData: {
-                mimeType: "image/jpeg",
-                data: image,
+        contents: [
+          {
+            role: "user",
+            parts: [
+              {
+                inlineData: {
+                  mimeType: "image/jpeg",
+                  data: image,
+                },
               },
-            },
-            { text: prompt },
-          ],
-        },
+              { text: prompt },
+            ],
+          },
+        ],
         config: {
           responseMimeType: "application/json",
           responseSchema: ANALYSIS_SCHEMA as any,
