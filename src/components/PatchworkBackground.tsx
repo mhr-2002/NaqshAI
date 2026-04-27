@@ -34,9 +34,9 @@ export default function PatchworkBackground() {
   }, []);
 
   return (
-    <div className="fixed inset-0 pointer-events-none overflow-hidden z-0 bg-silk-charcoal">
+    <div className="fixed inset-0 pointer-events-none overflow-hidden z-[-1] bg-silk-charcoal">
       <div 
-        className="absolute top-[-5%] left-[-5%] w-[110%] grid grid-cols-6 gap-0 opacity-[0.95]"
+        className="absolute top-[-5%] left-[-5%] w-[110%] grid grid-cols-6 gap-0 opacity-[0.9]"
       >
         {gridItems.map((pattern, i) => {
           let position = 'center';
@@ -46,7 +46,7 @@ export default function PatchworkBackground() {
           return (
             <div 
               key={i}
-              className="relative w-full aspect-square overflow-hidden bg-silk-charcoal border-[0.5px] border-white/5"
+              className="relative w-full aspect-square overflow-hidden bg-silk-charcoal/50 border-[0.5px] border-white/5"
             >
                <div 
                  className="absolute inset-0 transition-transform duration-700 scale-[1.5] transform-gpu"
@@ -57,7 +57,7 @@ export default function PatchworkBackground() {
                    backgroundRepeat: 'no-repeat'
                  }}
                />
-               <div className="absolute inset-0 bg-black/10" />
+               <div className="absolute inset-0 bg-black/5" />
             </div>
           );
         })}
