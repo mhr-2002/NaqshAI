@@ -16,38 +16,52 @@ export default function App() {
   const [lang, setLang] = useState<'en' | 'ur'>('en');
 
   const compressImage = (base64Str: string): Promise<string> => {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       const img = new Image();
-      img.src = base64Str;
       img.onload = () => {
-        const canvas = document.createElement('canvas');
-        let width = img.width;
-        let height = img.height;
+        try {
+          const canvas = document.createElement('canvas');
+          let width = img.width;
+          let height = img.height;
 
-        // Max dimensions to ensure stability and keep payload small
-        const MAX_WIDTH = 1200;
-        const MAX_HEIGHT = 1200;
+          // Max dimensions for AI stability and UI performance
+          const MAX_WIDTH = 1200;
+          const MAX_HEIGHT = 1200;
 
-        if (width > height) {
-          if (width > MAX_WIDTH) {
-            height *= MAX_WIDTH / width;
-            width = MAX_WIDTH;
+          if (width > height) {
+            if (width > MAX_WIDTH) {
+              height *= MAX_WIDTH / width;
+              width = MAX_WIDTH;
+            }
+          } else {
+            if (height > MAX_HEIGHT) {
+              width *= MAX_HEIGHT / height;
+              height = MAX_HEIGHT;
+            }
           }
-        } else {
-          if (height > MAX_HEIGHT) {
-            width *= MAX_HEIGHT / height;
-            height = MAX_HEIGHT;
+
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          if (!ctx) {
+            resolve(base64Str); // Fallback to original if canvas fails
+            return;
           }
+          
+          ctx.drawImage(img, 0, 0, width, height);
+          
+          // Use JPEG for compression, typically much smaller than PNG for photos
+          const compressed = canvas.toDataURL('image/jpeg', 0.7);
+          resolve(compressed);
+        } catch (e) {
+          console.error("Compression error:", e);
+          resolve(base64Str); // Fallback to original
         }
-
-        canvas.width = width;
-        canvas.height = height;
-        const ctx = canvas.getContext('2d');
-        ctx?.drawImage(img, 0, 0, width, height);
-        
-        // Compress to JPEG with 0.8 quality
-        resolve(canvas.toDataURL('image/jpeg', 0.8));
       };
+      img.onerror = () => {
+        reject(new Error("Failed to process the image format."));
+      };
+      img.src = base64Str;
     });
   };
 
@@ -66,13 +80,15 @@ export default function App() {
     const reader = new FileReader();
     reader.onload = async (event) => {
       const base64 = event.target?.result as string;
-      setImage(base64);
       
       try {
         setStatus('analyzing');
         const compressedBase64 = await compressImage(base64);
+        setImage(compressedBase64); // Use compressed version for display too
+        
         const analysisBase64 = compressedBase64.split(',')[1];
         const res = await analyzeSouthAsianOutfit(analysisBase64);
+        console.log("Analysis Result received:", res);
         setResult(res);
         setStatus('completed');
       } catch (err: any) {

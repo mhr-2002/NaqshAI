@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Scissors, Clock, Users, Lightbulb, BadgeCheck, MapPin, ExternalLink, Brush } from 'lucide-react';
+import { Scissors, Clock, Users, Lightbulb, BadgeCheck, MapPin, ExternalLink, Brush, Search } from 'lucide-react';
 import { AnalysisResult } from '../types';
 import ArtisanDirectory from './ArtisanDirectory';
 
