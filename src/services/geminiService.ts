@@ -102,8 +102,9 @@ const ANALYSIS_SCHEMA = {
 export async function analyzeSouthAsianOutfit(base64Image: string): Promise<AnalysisResult> {
   console.log("Starting analysis request to Gemini AI...");
 
-  if (!process.env.GEMINI_API_KEY) {
-    throw new Error("GEMINI_API_KEY is not configured.");
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey || apiKey === "undefined") {
+    throw new Error("Gemini API key is not configured. please check your environment settings.");
   }
 
   const prompt = `
