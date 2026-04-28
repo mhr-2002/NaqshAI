@@ -5,12 +5,20 @@ import {defineConfig, loadEnv} from 'vite';
 
 export default defineConfig(({mode}) => {
   const env = loadEnv(mode, '.', '');
+  
+  // Debug: Log all available environment variable keys
+  console.log('Available process.env keys:', Object.keys(process.env).filter(k => !k.startsWith('npm_')));
+  console.log('Available loadEnv keys:', Object.keys(env));
+  
   const apiKey = env.GEMINI_API_KEY || 
                  process.env.GEMINI_API_KEY || 
                  env['Gemini API Key'] || 
                  process.env['Gemini API Key'] ||
                  env.VITE_GEMINI_API_KEY || 
+                 process.env.VITE_GEMINI_API_KEY ||
                  '';
+  
+  console.log('Final apiKey resolved to:', apiKey ? 'Value found' : 'EMPTY STRING');
 
   return {
     plugins: [react(), tailwindcss()],
