@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Scissors, Clock, Users, Lightbulb, BadgeCheck, MapPin, ExternalLink, Brush, Search } from 'lucide-react';
+import { Scissors, Clock, Users, Lightbulb, BadgeCheck, MapPin, ExternalLink, Brush } from 'lucide-react';
 import { AnalysisResult } from '../types';
 import ArtisanDirectory from './ArtisanDirectory';
 
@@ -48,8 +48,7 @@ export default function AnalysisReport({ result, language, setLanguage }: Props)
       timeline: "Timeline",
       contact: "Contact Artisans in Old Lahore",
       palette: "Color Palette",
-      complexity: "Complexity",
-      findSimilar: "Search Similar"
+      complexity: "Complexity"
     },
     ur: {
       boutique: "ڈیزائن کا مکمل تجزیہ",
@@ -62,8 +61,7 @@ export default function AnalysisReport({ result, language, setLanguage }: Props)
       timeline: "وقت",
       contact: "پرانے لاہور کے ماہر کاریگروں سے رابطہ کریں",
       palette: "رنگوں کا انتخاب",
-      complexity: "مشکل کا درجہ",
-      findSimilar: "ملتے جلتے ڈیزائن"
+      complexity: "مشکل کا درجہ"
     }
   };
 
@@ -84,12 +82,12 @@ export default function AnalysisReport({ result, language, setLanguage }: Props)
     if (text.includes('gota') || text.includes('lappa')) return '/gota.png';
     if (text.includes('dabka') || text.includes('spring')) return '/embroidery-Dabka.png';
     if (text.includes('kora')) return '/embroidery-Kora.png';
-    if (text.includes('tilla') || text.includes('zarri') || text.includes('zari')) return '/embroidery-Tilla-zarri.png';
+    if (text.includes('tilla') || text.includes('zarri') || text.includes('zari')) return '/embroidery-tilla-zarri.png';
     if (text.includes('marori')) return '/embroidery-Marori.png';
     if (text.includes('nakshi')) return '/embroidery-Nakshi.png';
     if (text.includes('pitta')) return '/embroidery-Pitta.png';
     if (text.includes('chikan') || text.includes('white work')) return '/embroidery-ChikanKari.png';
-    if (text.includes('mukesh') || text.includes('kamdani') || text.includes('badla')) return '/embroidery-Kamdani-Mukesh.png';
+    if (text.includes('mukesh') || text.includes('kamdani') || text.includes('badla')) return '/embroidery-kamdani-mukesh.png';
     if (text.includes('stone') || text.includes('crystal') || text.includes('stonework') || text.includes('kundan')) return '/embroidery-StoneWork.png';
     if (text.includes('jaali') || text.includes('cutwork') || text.includes('jaal')) return '/embroidery-Jaali-Jaal.png';
     
@@ -158,19 +156,6 @@ export default function AnalysisReport({ result, language, setLanguage }: Props)
           </svg>
         </div>
         
-        {/* Main Search Button */}
-        <motion.div variants={item} className="mb-8 flex justify-center">
-          <button 
-            onClick={() => window.open(`https://www.google.com/search?tbm=isch&q=${encodeURIComponent(result.title + ' south asian wear embroidery luxury')}`, '_blank')}
-            className="flex items-center gap-3 px-6 py-3 bg-silk-charcoal text-white rounded-full text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-royal-maroon transition-all shadow-lg"
-          >
-            <Search className="w-4 h-4" />
-            <span className={lang === 'ur' ? 'urdu-text' : ''}>
-              {lang === 'ur' ? 'ملتے جلتے ڈیزائن تلاش کریں' : 'Find Similar Inspirations'}
-            </span>
-          </button>
-        </motion.div>
-
         <motion.div variants={item} className="mb-10 text-center">
           <span className={`text-[10px] uppercase font-bold tracking-[0.4em] text-heritage-gold mb-3 block ${lang === 'ur' ? 'urdu-text text-sm' : ''}`}>
             {labels[lang].boutique}
@@ -211,19 +196,10 @@ export default function AnalysisReport({ result, language, setLanguage }: Props)
                       }}
                     />
                   </div>
-                    <div className={`flex flex-col ${lang === 'ur' ? 'text-right' : ''}`}>
-                    <div className={`flex items-center justify-between gap-2 ${lang === 'ur' ? 'flex-row-reverse' : ''}`}>
-                      <span className={`font-semibold text-silk-charcoal text-sm ${lang === 'ur' ? 'urdu-text text-lg' : ''}`}>
-                        {lang === 'ur' ? style.urduStyle : style.style}
-                      </span>
-                      <button 
-                        onClick={() => window.open(`https://www.google.com/search?tbm=isch&q=${encodeURIComponent(style.style + ' embroidery south asian wear')}`, '_blank')}
-                        className="text-[10px] text-heritage-gold hover:underline flex items-center gap-1 uppercase tracking-widest font-bold"
-                      >
-                        <Search className="w-3 h-3" />
-                        {labels[lang].findSimilar}
-                      </button>
-                    </div>
+                  <div className={`flex flex-col ${lang === 'ur' ? 'text-right' : ''}`}>
+                    <span className={`font-semibold text-silk-charcoal text-sm ${lang === 'ur' ? 'urdu-text text-lg' : ''}`}>
+                      {lang === 'ur' ? style.urduStyle : style.style}
+                    </span>
                     <p className={`text-silk-charcoal/60 text-sm leading-relaxed ${lang === 'ur' ? 'urdu-text' : ''}`}>
                       {lang === 'ur' ? style.urduDescription : style.description}
                     </p>

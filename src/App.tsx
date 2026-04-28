@@ -15,56 +15,6 @@ export default function App() {
   const [error, setError] = useState<string | null>(null);
   const [lang, setLang] = useState<'en' | 'ur'>('en');
 
-  const compressImage = (base64Str: string): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      const img = new Image();
-      img.onload = () => {
-        try {
-          const canvas = document.createElement('canvas');
-          let width = img.width;
-          let height = img.height;
-
-          // Max dimensions for AI stability and UI performance
-          const MAX_WIDTH = 1200;
-          const MAX_HEIGHT = 1200;
-
-          if (width > height) {
-            if (width > MAX_WIDTH) {
-              height *= MAX_WIDTH / width;
-              width = MAX_WIDTH;
-            }
-          } else {
-            if (height > MAX_HEIGHT) {
-              width *= MAX_HEIGHT / height;
-              height = MAX_HEIGHT;
-            }
-          }
-
-          canvas.width = width;
-          canvas.height = height;
-          const ctx = canvas.getContext('2d');
-          if (!ctx) {
-            resolve(base64Str); // Fallback to original if canvas fails
-            return;
-          }
-          
-          ctx.drawImage(img, 0, 0, width, height);
-          
-          // Use JPEG for compression, typically much smaller than PNG for photos
-          const compressed = canvas.toDataURL('image/jpeg', 0.7);
-          resolve(compressed);
-        } catch (e) {
-          console.error("Compression error:", e);
-          resolve(base64Str); // Fallback to original
-        }
-      };
-      img.onerror = () => {
-        reject(new Error("Failed to process the image format."));
-      };
-      img.src = base64Str;
-    });
-  };
-
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -80,28 +30,17 @@ export default function App() {
     const reader = new FileReader();
     reader.onload = async (event) => {
       const base64 = event.target?.result as string;
+      setImage(base64);
       
       try {
         setStatus('analyzing');
-        const compressedBase64 = await compressImage(base64);
-        setImage(compressedBase64); // Use compressed version for display too
-        
-        const analysisBase64 = compressedBase64.split(',')[1];
+        const analysisBase64 = base64.split(',')[1];
         const res = await analyzeSouthAsianOutfit(analysisBase64);
-        console.log("Analysis Result received:", res);
         setResult(res);
         setStatus('completed');
       } catch (err: any) {
-        console.error("Analysis Error:", err);
-        let errorMessage = err?.message || 'The artisan is busy at the moment. Please try again.';
-        
-        if (errorMessage.includes('413')) {
-          errorMessage = 'The image is too large. Please try a smaller file or a different photo.';
-        } else if (errorMessage.includes('API key')) {
-          errorMessage = 'The artisan requires a special key to start. Please wait while we set up your environment.';
-        }
-
-        setError(errorMessage);
+        console.error(err);
+        setError(err.message || 'The artisan is busy at the moment. Please try again.');
         setStatus('error');
       }
     };
