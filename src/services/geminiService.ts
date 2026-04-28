@@ -5,20 +5,20 @@ let aiClient: GoogleGenAI | null = null;
 
 function getAiClient() {
   if (!aiClient) {
-    const fromProcess = process.env.GEMINI_API_KEY;
     const fromVite = import.meta.env.VITE_GEMINI_API_KEY;
+    const fromProcess = (process.env as any).GEMINI_API_KEY;
     
     console.log('Gemini API Key Lookup:', {
-      processEnv: fromProcess ? 'Exists (starts with ' + fromProcess.substring(0, 3) + '...)' : 'Missing',
-      viteEnv: fromVite ? 'Exists (starts with ' + fromVite.substring(0, 3) + '...)' : 'Missing'
+      viteEnv: fromVite ? 'Found' : 'Missing',
+      processEnv: fromProcess ? 'Found' : 'Missing'
     });
 
-    const apiKey = fromProcess || fromVite;
+    const apiKey = fromVite || fromProcess;
     
-    if (!apiKey || apiKey === "undefined" || apiKey === '""') {
+    if (!apiKey || apiKey === "undefined" || apiKey === '""' || apiKey === 'null') {
       throw new Error(`GEMINI_API_KEY is missing. 
-      Current status: process.env: ${fromProcess ? 'Found' : 'Not found'}, VITE_: ${fromVite ? 'Found' : 'Not found'}.
-      Please go to Settings > Secrets and ensure you have 'GEMINI_API_KEY' set correctly.`);
+      Status: VITE_ Prefixed: ${fromVite ? 'Found' : 'Not found'}, Standard: ${fromProcess ? 'Found' : 'Not found'}.
+      Please go to Settings > Secrets, add 'GEMINI_API_KEY', save, and refresh the browser.`);
     }
     aiClient = new GoogleGenAI({ apiKey });
   }

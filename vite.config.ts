@@ -10,15 +10,19 @@ export default defineConfig(({mode}) => {
   console.log('Available process.env keys:', Object.keys(process.env).filter(k => !k.startsWith('npm_')));
   console.log('Available loadEnv keys:', Object.keys(env));
   
-  const apiKey = env.GEMINI_API_KEY || 
+  const apiKey = process.env.VITE_GEMINI_API_KEY || 
                  process.env.GEMINI_API_KEY || 
+                 env.VITE_GEMINI_API_KEY || 
+                 env.GEMINI_API_KEY || 
                  env['Gemini API Key'] || 
                  process.env['Gemini API Key'] ||
-                 env.VITE_GEMINI_API_KEY || 
-                 process.env.VITE_GEMINI_API_KEY ||
                  '';
   
-  console.log('Final apiKey resolved to:', apiKey ? 'Value found' : 'EMPTY STRING');
+  if (apiKey) {
+    console.log('Successfully resolved GEMINI_API_KEY from environment');
+  } else {
+    console.warn('WARNING: GEMINI_API_KEY not found in any environment variable');
+  }
 
   return {
     plugins: [react(), tailwindcss()],
