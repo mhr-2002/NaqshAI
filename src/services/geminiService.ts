@@ -5,8 +5,10 @@ let aiClient: GoogleGenAI | null = null;
 
 function getAiClient() {
   if (!aiClient) {
-    const apiKey = process.env.GEMINI_API_KEY;
-    if (!apiKey) {
+    // Check both process.env (replaced by Vite define) and import.meta.env (Vite native)
+    const apiKey = process.env.GEMINI_API_KEY || (import.meta.env?.VITE_GEMINI_API_KEY as string);
+    
+    if (!apiKey || apiKey === "undefined") {
       throw new Error("GEMINI_API_KEY is missing. 1. Go to Settings menu. 2. Ensure your secret is named 'GEMINI_API_KEY' or 'Gemini API Key'. 3. Save and refresh the page.");
     }
     aiClient = new GoogleGenAI({ apiKey });
