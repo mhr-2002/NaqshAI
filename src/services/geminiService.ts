@@ -7,7 +7,7 @@ function getAiClient() {
   if (!aiClient) {
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
-      throw new Error("GEMINI_API_KEY is missing. Please set it in the Settings menu.");
+      throw new Error("GEMINI_API_KEY is missing. 1. Go to Settings menu. 2. Add secret named 'GEMINI_API_KEY'. 3. Save and refresh page.");
     }
     aiClient = new GoogleGenAI({ apiKey });
   }
