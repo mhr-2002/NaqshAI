@@ -5,7 +5,7 @@ let aiClient: GoogleGenAI | null = null;
 
 function getAiClient() {
   if (!aiClient) {
-    const fromVite = import.meta.env.VITE_GEMINI_API_KEY;
+    const fromVite = (import.meta as any).env.VITE_GEMINI_API_KEY;
     const fromProcess = (process.env as any).GEMINI_API_KEY;
     
     console.log('Gemini API Key Lookup:', {
