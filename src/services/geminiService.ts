@@ -1,7 +1,18 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { AnalysisResult } from "../types";
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY || "" });
+let aiClient: GoogleGenAI | null = null;
+
+function getAiClient() {
+  if (!aiClient) {
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      throw new Error("GEMINI_API_KEY is missing. Please set it in the Settings menu.");
+    }
+    aiClient = new GoogleGenAI({ apiKey });
+  }
+  return aiClient;
+}
 
 const ANALYSIS_SCHEMA = {
   type: Type.OBJECT,
@@ -124,6 +135,7 @@ export async function analyzeSouthAsianOutfit(base64Image: string): Promise<Anal
 
   console.log("Calling Gemini 3 Flash");
   
+  const ai = getAiClient();
   const response = await ai.models.generateContent({
     model: "gemini-3-flash-preview",
     contents: {

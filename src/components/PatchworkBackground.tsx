@@ -9,7 +9,7 @@ const PATTERNS = [
   '/Resham-1.png',
   '/embroidery-Dabka.png',
   '/embroidery-Jaali-Jaal.png',
-  '/embroidery-Kamdani(Mukesh).png',
+  '/embroidery-Kamdani-Mukesh.png',
   '/embroidery-StoneWork.png',
   '/embroidery-Resham-1.png',
   '/embroidery-Zardozi-1.png',
