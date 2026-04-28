@@ -16,8 +16,18 @@ function getAiClient() {
 
     const apiKey = fromProcess || fromVite;
     
-    if (!apiKey || apiKey === "undefined" || apiKey === '""' || apiKey === 'null') {
-      throw new Error(`GEMINI_API_KEY is missing.
+    // Masked log for debugging in the browser console
+    console.log('API Key Detection Result:', {
+      typeFromProcess: typeof fromProcess,
+      typeFromVite: typeof fromVite,
+      finalKeyLength: apiKey ? apiKey.length : 0,
+      finalKeyPreview: apiKey && apiKey.length > 5 ? `${apiKey.substring(0, 3)}...${apiKey.substring(apiKey.length - 3)}` : 'N/A'
+    });
+
+    if (!apiKey || apiKey === "undefined" || apiKey === '""' || apiKey === 'null' || apiKey.length < 10) {
+      throw new Error(`GEMINI_API_KEY is missing or invalid.
+      Length: ${apiKey ? apiKey.length : 0}
+      Value check: ${apiKey === "undefined" ? "literal 'undefined'" : apiKey === '""' ? "literal empty quotes" : typeof apiKey}
       Please go to Settings > Secrets, add 'GEMINI_API_KEY', save, and refresh the browser.`);
     }
     aiClient = new GoogleGenAI({ apiKey });
