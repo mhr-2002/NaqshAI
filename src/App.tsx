@@ -41,7 +41,7 @@ export default function App() {
       } catch (err: any) {
         console.error("Analysis Error:", err);
         const errorMessage = err?.message || 'The artisan is busy at the moment. Please try again.';
-        setError(errorMessage.includes('not found') ? `Model error: ${errorMessage}` : 'The artisan is busy at the moment. Please try again.');
+        setError(`Error: ${errorMessage}`);
         setStatus('error');
       }
     };

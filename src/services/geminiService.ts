@@ -122,33 +122,26 @@ export async function analyzeSouthAsianOutfit(base64Image: string): Promise<Anal
     - Extremely Couture: 500,000+ PKR
   `;
 
-  console.log("Calling Gemini with model: gemini-3.1-flash-image-preview");
+  console.log("Calling Gemini with model: gemini-1.5-flash");
   const response = await ai.models.generateContent({
-    model: "gemini-3.1-flash-image-preview",
-    contents: {
-      parts: [
-        {
-          inlineData: {
-            mimeType: "image/jpeg",
-            data: base64Image,
+    model: "gemini-1.5-flash",
+    contents: [
+      {
+        role: "user",
+        parts: [
+          {
+            inlineData: {
+              mimeType: "image/jpeg",
+              data: base64Image,
+            },
           },
-        },
-        { text: prompt },
-      ],
-    },
+          { text: prompt },
+        ],
+      },
+    ],
     config: {
       responseMimeType: "application/json",
       responseSchema: ANALYSIS_SCHEMA as any,
-      tools: [
-        {
-          googleSearch: {
-            searchTypes: {
-              webSearch: {},
-              imageSearch: {},
-            },
-          },
-        },
-      ],
     },
   });
 
