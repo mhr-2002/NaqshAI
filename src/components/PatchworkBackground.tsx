@@ -9,7 +9,7 @@ const PATTERNS = [
   '/Resham-1.png',
   '/embroidery-Dabka.png',
   '/embroidery-Jaali-Jaal.png',
-  '/embroidery-kamdani-mukesh.png',
+  '/embroidery-Kamdani-Mukesh.png',
   '/embroidery-StoneWork.png',
   '/embroidery-Resham-1.png',
   '/embroidery-Zardozi-1.png',
@@ -23,7 +23,7 @@ export default function PatchworkBackground() {
     const items = [];
     const rows = 10;
     const cols = 6;
-    
+
     for (let r = 0; r < rows; r++) {
       for (let c = 0; c < cols; c++) {
         const idx = (r * cols + c) % PATTERNS.length;
@@ -35,7 +35,7 @@ export default function PatchworkBackground() {
 
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden z-[-1] bg-[#fdfbf6]">
-      <div 
+      <div
         className="absolute top-[-5%] left-[-5%] w-[110%] grid grid-cols-6 gap-0 opacity-60"
       >
         {gridItems.map((pattern, i) => {
@@ -44,15 +44,15 @@ export default function PatchworkBackground() {
           if (pattern.toLowerCase().includes('zardozi')) position = 'center top';
 
           return (
-            <div 
+            <div
               key={i}
               className="relative w-full aspect-square overflow-hidden border-[0.5px] border-black/5"
             >
-               <div 
+               <div
                  className="absolute inset-0 transition-transform duration-700 scale-[1.5] transform-gpu"
-                 style={{ 
-                   backgroundImage: `url('${pattern}')`, 
-                   backgroundSize: 'cover', 
+                 style={{
+                   backgroundImage: `url('${pattern}')`,
+                   backgroundSize: 'cover',
                    backgroundPosition: position,
                    backgroundRepeat: 'no-repeat'
                  }}
@@ -62,7 +62,7 @@ export default function PatchworkBackground() {
           );
         })}
       </div>
-      
+
       {/* Readability gradients */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#fdfbf6]/40 via-transparent to-[#fdfbf6]/80" />
       <div className="absolute top-0 left-0 right-0 h-96 bg-gradient-to-b from-white/30 to-transparent pointer-events-none" />
